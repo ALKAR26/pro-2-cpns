@@ -168,3 +168,9 @@ while True:
     if choice == '1':
         sign_up()
     elif choice == '2':
+        sign_in()
+    elif choice == '3':
+        print("Goodbye!")
+        break
+    else:
+        print("Invalid choice. Please enter 1, 2, or 3.")
