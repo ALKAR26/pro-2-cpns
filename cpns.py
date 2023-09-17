@@ -58,33 +58,229 @@ car_data = {
     },
     "Delhi": {
         "Sedan": {
+             "Maruti Suzuki": {
+                "Dzire": 800000,
+                "Ciaz": 900000,
+                "Baleno": 850000,
+                "Swift": 750000,
+                "Ertiga": 950000
+            },
+            "Hyundai": {
+                "Verna": 850000,
+                "Aura": 820000,
+                "i20": 780000,
+                "Elantra": 1200000,
+                "Accent": 800000
+            },
+            "Toyota": {
+                "Camry": 1500000,
+                "Yaris": 850000,
+                "Corolla": 1100000,
+                "Etios": 800000,
+                "Glanza": 750000
+            },
+            "Honda": {
+                "City": 900000,
+                "Amaze": 800000,
+                "Civic": 1150000,
+                "Accord": 2000000,
+                "Jazz": 850000
+            },
+            "Ford": {
+                "EcoSport": 1000000,
+                "Endeavour": 2500000,
+                "Escape": 1200000,
+                "Explorer": 1600000,
+                "Bronco": 1700000
+            }
             # Car data for Delhi Sedans (similar structure as Mumbai)
         },
         "SUV": {
+            "Hyundai": {
+                "Creta": 1100000,
+                "Venue": 950000,
+                "Tucson": 1500000,
+                "Santa Fe": 1800000,
+                "Kona": 1300000
+            },
+            "Kia": {
+                "Seltos": 1050000,
+                "Sonet": 900000,
+                "Sportage": 1400000,
+                "Telluride": 1700000,
+                "Carnival": 1900000
+            },
             # Car data for Delhi SUVs (similar structure as Mumbai)
         }
     },
     "Bangalore": {
         "Sedan": {
+             "Maruti Suzuki": {
+                "Dzire": 800000,
+                "Ciaz": 900000,
+                "Baleno": 850000,
+                "Swift": 750000,
+                "Ertiga": 950000
+            },
+            "Hyundai": {
+                "Verna": 850000,
+                "Aura": 820000,
+                "i20": 780000,
+                "Elantra": 1200000,
+                "Accent": 800000
+            },
+            "Toyota": {
+                "Camry": 1500000,
+                "Yaris": 850000,
+                "Corolla": 1100000,
+                "Etios": 800000,
+                "Glanza": 750000
+            },
+            "Honda": {
+                "City": 900000,
+                "Amaze": 800000,
+                "Civic": 1150000,
+                "Accord": 2000000,
+                "Jazz": 850000
+            },
+            "Ford": {
+                "EcoSport": 1000000,
+                "Endeavour": 2500000,
+                "Escape": 1200000,
+                "Explorer": 1600000,
+                "Bronco": 1700000
+            }
             # Car data for Bangalore Sedans (similar structure as Mumbai)
         },
         "SUV": {
+            "Hyundai": {
+                "Creta": 1100000,
+                "Venue": 950000,
+                "Tucson": 1500000,
+                "Santa Fe": 1800000,
+                "Kona": 1300000
+            },
+            "Kia": {
+                "Seltos": 1050000,
+                "Sonet": 900000,
+                "Sportage": 1400000,
+                "Telluride": 1700000,
+                "Carnival": 1900000
+            },
             # Car data for Bangalore SUVs (similar structure as Mumbai)
         }
     },
     "Chennai": {
         "Sedan": {
+             "Maruti Suzuki": {
+                "Dzire": 800000,
+                "Ciaz": 900000,
+                "Baleno": 850000,
+                "Swift": 750000,
+                "Ertiga": 950000
+            },
+            "Hyundai": {
+                "Verna": 850000,
+                "Aura": 820000,
+                "i20": 780000,
+                "Elantra": 1200000,
+                "Accent": 800000
+            },
+            "Toyota": {
+                "Camry": 1500000,
+                "Yaris": 850000,
+                "Corolla": 1100000,
+                "Etios": 800000,
+                "Glanza": 750000
+            },
+            "Honda": {
+                "City": 900000,
+                "Amaze": 800000,
+                "Civic": 1150000,
+                "Accord": 2000000,
+                "Jazz": 850000
+            },
+            "Ford": {
+                "EcoSport": 1000000,
+                "Endeavour": 2500000,
+                "Escape": 1200000,
+                "Explorer": 1600000,
+                "Bronco": 1700000
+            }
             # Car data for Chennai Sedans (similar structure as Mumbai)
         },
         "SUV": {
+            "Hyundai": {
+                "Creta": 1100000,
+                "Venue": 950000,
+                "Tucson": 1500000,
+                "Santa Fe": 1800000,
+                "Kona": 1300000
+            },
+            "Kia": {
+                "Seltos": 1050000,
+                "Sonet": 900000,
+                "Sportage": 1400000,
+                "Telluride": 1700000,
+                "Carnival": 1900000
+            },
             # Car data for Chennai SUVs (similar structure as Mumbai)
         }
     },
     "Kolkata": {
         "Sedan": {
+             "Maruti Suzuki": {
+                "Dzire": 800000,
+                "Ciaz": 900000,
+                "Baleno": 850000,
+                "Swift": 750000,
+                "Ertiga": 950000
+            },
+            "Hyundai": {
+                "Verna": 850000,
+                "Aura": 820000,
+                "i20": 780000,
+                "Elantra": 1200000,
+                "Accent": 800000
+            },
+            "Toyota": {
+                "Camry": 1500000,
+                "Yaris": 850000,
+                "Corolla": 1100000,
+                "Etios": 800000,
+                "Glanza": 750000
+            },
+            "Honda": {
+                "City": 900000,
+                "Amaze": 800000,
+                "Civic": 1150000,
+                "Accord": 2000000,
+                "Jazz": 850000
+            },
+            "Ford": {
+                "EcoSport": 1000000,
+                "Endeavour": 2500000,
+                "Escape": 1200000,
+                "Explorer": 1600000,
+                "Bronco": 1700000
+            }
             # Car data for Kolkata Sedans (similar structure as Mumbai)
         },
         "SUV": {
+            "Hyundai": {
+                "Creta": 1100000,
+                "Venue": 950000,
+                "Tucson": 1500000,
+                "Santa Fe": 1800000,
+                "Kona": 1300000
+            },
+            "Kia": {
+                "Seltos": 1050000,
+                "Sonet": 900000,
+                "Sportage": 1400000,
+                "Telluride": 1700000,
+                "Carnival": 1900000
+            },
             # Car data for Kolkata SUVs (similar structure as Mumbai)
         }
     },
