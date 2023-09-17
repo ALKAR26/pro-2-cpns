@@ -1,5 +1,4 @@
 import requests
-from bs4 import BeautifulSoup
 import smtplib
 import time
 
@@ -22,23 +21,28 @@ def send_notification(subject, message, to_email):
     # Close the server connection
     server.quit()
 
-# Function to scrape car prices
-def scrape_car_price(url):
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"}
-    response = requests.get(url, headers=headers)
-    soup = BeautifulSoup(response.content, "html.parser")
+# Function to fetch car price using the Edmunds API
+def fetch_car_price(api_key):
+    base_url = "https://api.edmunds.com/api/v2/your_endpoint_here"  # Replace with the actual API endpoint
+    parameters = {
+        "api_key": api_key,
+        # Add any other required parameters here
+    }
 
-    # Extract the price element based on the website's structure
-    price_element = soup.find("span", {"class": "price-class"})  # Replace with the actual HTML structure
+    response = requests.get(base_url, params=parameters)
 
-    if price_element:
-        return price_element.text.strip()
+    if response.status_code == 200:
+        data = response.json()
+
+        # Extract the car price from the API response
+        car_price = data["price"]  # Replace with the actual JSON structure
+
+        return car_price
     else:
         return None
 
-# URL of the car listing page
-car_url = "https://example.com/car-listing"  # Replace with the URL of the car listing page
+# API key from Edmunds (replace with your actual API key)
+edmunds_api_key = "your_api_key_here"
 
 # Desired price threshold
 desired_price = 20000
@@ -47,11 +51,9 @@ desired_price = 20000
 to_email = "recipient_email@example.com"  # Replace with the recipient's email address
 
 while True:
-    current_price = scrape_car_price(car_url)
+    current_price = fetch_car_price(edmunds_api_key)
     
     if current_price:
-        current_price = float(current_price.replace("$", "").replace(",", ""))
-        
         if current_price <= desired_price:
             subject = "Car Price Alert"
             message = f"The car price is now ${current_price}. It's within your desired price range!"
