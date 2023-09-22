@@ -1,11 +1,12 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QListWidget, QDialog, QInputDialog, QLineEdit, QPushButton, QMessageBox
+from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QListWidget, QDialog, QInputDialog, QLineEdit, QPushButton, QMessageBox, QListWidgetItem
 
 class CarPriceSystem(QWidget):
     def __init__(self, car_data):
         super().__init__()
 
         self.car_data = car_data
+        self.current_city = None  # Track the currently selected city
         self.init_ui()
 
     def init_ui(self):
@@ -13,15 +14,47 @@ class CarPriceSystem(QWidget):
         self.setGeometry(100, 100, 400, 300)
 
         self.car_list = QListWidget(self)
-        for city, companies in self.car_data.items():
-            for company, models in companies.items():
-                for model, price in models.items():
-                    self.car_list.addItem(f"{city} - {company} - {model}: ₹{price:.2f}")
+        self.update_car_list()  # Display car data for the initial city
+
+        self.switch_city_button = QPushButton('Switch City', self)
+        self.switch_city_button.clicked.connect(self.switch_city)
+
+        self.compare_button = QPushButton('Compare', self)
+        self.compare_button.setEnabled(False)  # Disable the Compare button initially
+        self.compare_button.clicked.connect(self.compare_cars)
 
         layout = QVBoxLayout()
         layout.addWidget(self.car_list)
+        layout.addWidget(self.switch_city_button)
+        layout.addWidget(self.compare_button)
 
         self.setLayout(layout)
+
+    def update_car_list(self):
+        # Clear the current car list
+        self.car_list.clear()
+
+        if self.current_city:
+            city_data = self.car_data.get(self.current_city, {})
+            for company, models in city_data.items():
+                for model, price in models.items():
+                    item = QListWidgetItem(f"{self.current_city} - {company} - {model}: ₹{price:.2f}", self.car_list)
+                    item.setFlags(item.flags() | Qt.ItemIsUserCheckable)
+                    item.setCheckState(Qt.Unchecked)
+
+    def switch_city(self):
+        city, ok = QInputDialog.getItem(self, 'Switch City', 'Select a city:', list(self.car_data.keys()), 0, False)
+        if ok:
+            self.current_city = city
+            self.update_car_list()
+
+    def compare_cars(self):
+        selected_items = [item.text() for item in self.car_list.selectedItems()]
+
+        if selected_items:
+            QMessageBox.information(self, 'Compare Cars', '\n'.join(selected_items))
+        else:
+            QMessageBox.warning(self, 'Compare Cars', 'No cars selected for comparison. Please select some cars.')
 
 class LoginPage(QDialog):
     def __init__(self, car_data):
@@ -92,75 +125,32 @@ class LoginPage(QDialog):
                 if ok:
                     self.users[username] = new_password
                     QMessageBox.information(self, 'Forgot Password', 'Password reset successful!')
-            else:
-                QMessageBox.warning(self, 'Forgot Password', 'Username not found. Please check the username.')
 
 if __name__ == '__main__':
+    # Define a common set of car models for all cities
+    common_car_models = {
+        'Toyota': {
+            'Camry': 3500000,
+            'Fortuner': 3500000,
+            'Corolla': 2200000,
+            'Innova': 2800000,
+            'Yaris': 1100000,
+        },
+        'Honda': {
+            'Civic': 2000000,
+            'CR-V': 3000000,
+            'Amaze': 700000,
+            'City': 1000000,
+            'BR-V': 1200000,
+        },
+    }
+
+    # Create car data for different cities
     car_data = {
-        'Delhi': {
-            'Toyota': {
-                'Camry': 3500000,
-                'Fortuner': 3500000,
-                'Corolla': 2200000,
-                'Innova': 2800000,
-                'Yaris': 1100000,
-            },
-            'Honda': {
-                'Civic': 2000000,
-                'CR-V': 3000000,
-                'Amaze': 700000,
-                'City': 1000000,
-                'BR-V': 1200000,
-            },
-        },
-        'Mumbai': {
-            'Maruti Suzuki': {
-                'Swift': 700000,
-                'Brezza': 900000,
-                'Alto': 400000,
-                'Wagon R': 500000,
-                'Ciaz': 900000,
-            },
-            'Hyundai': {
-                'i20': 800000,
-                'Creta': 1000000,
-                'Venue': 800000,
-                'Verna': 1000000,
-                'Tucson': 2500000,
-            },
-        },
-        'Chennai': {
-            'Mahindra': {
-                'XUV500': 1500000,
-                'Scorpio': 1200000,
-                'Thar': 1200000,
-                'Bolero': 800000,
-                'KUV100': 600000,
-            },
-            'Tata Motors': {
-                'Tiago': 550000,
-                'Tigor': 650000,
-                'Harrier': 1600000,
-                'Nexon': 800000,
-                'Safari': 2100000,
-            },
-        },
-        'Bangalore': {
-            'Kia': {
-                'Seltos': 1200000,
-                'Sonet': 800000,
-                'Carnival': 2500000,
-                'Niro': 1300000,
-                'Seltos EV': 1600000,
-            },
-            'Ford': {
-                'EcoSport': 900000,
-                'Figo': 700000,
-                'Endeavour': 3000000,
-                'Aspire': 800000,
-                'Freestyle': 800000,
-            },
-        },
+        'Delhi': common_car_models,
+        'Mumbai': common_car_models,
+        'Chennai': common_car_models,
+        'Bangalore': common_car_models,
     }
 
     app = QApplication(sys.argv)
