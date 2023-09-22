@@ -1,372 +1,101 @@
-# Dictionary to store car data
-car_data = {
-    "Mumbai": {
-        "Sedan": {
-            "Maruti Suzuki": {
-                "Dzire": 800000,
-                "Ciaz": 900000,
-                "Baleno": 850000,
-                "Swift": 750000,
-                "Ertiga": 950000
-            },
-            "Hyundai": {
-                "Verna": 850000,
-                "Aura": 820000,
-                "i20": 780000,
-                "Elantra": 1200000,
-                "Accent": 800000
-            },
-            "Toyota": {
-                "Camry": 1500000,
-                "Yaris": 850000,
-                "Corolla": 1100000,
-                "Etios": 800000,
-                "Glanza": 750000
-            },
-            "Honda": {
-                "City": 900000,
-                "Amaze": 800000,
-                "Civic": 1150000,
-                "Accord": 2000000,
-                "Jazz": 850000
-            },
-            "Ford": {
-                "EcoSport": 1000000,
-                "Endeavour": 2500000,
-                "Escape": 1200000,
-                "Explorer": 1600000,
-                "Bronco": 1700000
-            }
-        },
-        "SUV": {
-            "Hyundai": {
-                "Creta": 1100000,
-                "Venue": 950000,
-                "Tucson": 1500000,
-                "Santa Fe": 1800000,
-                "Kona": 1300000
-            },
-            "Kia": {
-                "Seltos": 1050000,
-                "Sonet": 900000,
-                "Sportage": 1400000,
-                "Telluride": 1700000,
-                "Carnival": 1900000
-            },
-            # Add more car companies and models here...
-        }
-    },
-    "Delhi": {
-        "Sedan": {
-             "Maruti Suzuki": {
-                "Dzire": 800000,
-                "Ciaz": 900000,
-                "Baleno": 850000,
-                "Swift": 750000,
-                "Ertiga": 950000
-            },
-            "Hyundai": {
-                "Verna": 850000,
-                "Aura": 820000,
-                "i20": 780000,
-                "Elantra": 1200000,
-                "Accent": 800000
-            },
-            "Toyota": {
-                "Camry": 1500000,
-                "Yaris": 850000,
-                "Corolla": 1100000,
-                "Etios": 800000,
-                "Glanza": 750000
-            },
-            "Honda": {
-                "City": 900000,
-                "Amaze": 800000,
-                "Civic": 1150000,
-                "Accord": 2000000,
-                "Jazz": 850000
-            },
-            "Ford": {
-                "EcoSport": 1000000,
-                "Endeavour": 2500000,
-                "Escape": 1200000,
-                "Explorer": 1600000,
-                "Bronco": 1700000
-            }
-            # Car data for Delhi Sedans (similar structure as Mumbai)
-        },
-        "SUV": {
-            "Hyundai": {
-                "Creta": 1100000,
-                "Venue": 950000,
-                "Tucson": 1500000,
-                "Santa Fe": 1800000,
-                "Kona": 1300000
-            },
-            "Kia": {
-                "Seltos": 1050000,
-                "Sonet": 900000,
-                "Sportage": 1400000,
-                "Telluride": 1700000,
-                "Carnival": 1900000
-            },
-            # Car data for Delhi SUVs (similar structure as Mumbai)
-        }
-    },
-    "Bangalore": {
-        "Sedan": {
-             "Maruti Suzuki": {
-                "Dzire": 800000,
-                "Ciaz": 900000,
-                "Baleno": 850000,
-                "Swift": 750000,
-                "Ertiga": 950000
-            },
-            "Hyundai": {
-                "Verna": 850000,
-                "Aura": 820000,
-                "i20": 780000,
-                "Elantra": 1200000,
-                "Accent": 800000
-            },
-            "Toyota": {
-                "Camry": 1500000,
-                "Yaris": 850000,
-                "Corolla": 1100000,
-                "Etios": 800000,
-                "Glanza": 750000
-            },
-            "Honda": {
-                "City": 900000,
-                "Amaze": 800000,
-                "Civic": 1150000,
-                "Accord": 2000000,
-                "Jazz": 850000
-            },
-            "Ford": {
-                "EcoSport": 1000000,
-                "Endeavour": 2500000,
-                "Escape": 1200000,
-                "Explorer": 1600000,
-                "Bronco": 1700000
-            }
-            # Car data for Bangalore Sedans (similar structure as Mumbai)
-        },
-        "SUV": {
-            "Hyundai": {
-                "Creta": 1100000,
-                "Venue": 950000,
-                "Tucson": 1500000,
-                "Santa Fe": 1800000,
-                "Kona": 1300000
-            },
-            "Kia": {
-                "Seltos": 1050000,
-                "Sonet": 900000,
-                "Sportage": 1400000,
-                "Telluride": 1700000,
-                "Carnival": 1900000
-            },
-            # Car data for Bangalore SUVs (similar structure as Mumbai)
-        }
-    },
-    "Chennai": {
-        "Sedan": {
-             "Maruti Suzuki": {
-                "Dzire": 800000,
-                "Ciaz": 900000,
-                "Baleno": 850000,
-                "Swift": 750000,
-                "Ertiga": 950000
-            },
-            "Hyundai": {
-                "Verna": 850000,
-                "Aura": 820000,
-                "i20": 780000,
-                "Elantra": 1200000,
-                "Accent": 800000
-            },
-            "Toyota": {
-                "Camry": 1500000,
-                "Yaris": 850000,
-                "Corolla": 1100000,
-                "Etios": 800000,
-                "Glanza": 750000
-            },
-            "Honda": {
-                "City": 900000,
-                "Amaze": 800000,
-                "Civic": 1150000,
-                "Accord": 2000000,
-                "Jazz": 850000
-            },
-            "Ford": {
-                "EcoSport": 1000000,
-                "Endeavour": 2500000,
-                "Escape": 1200000,
-                "Explorer": 1600000,
-                "Bronco": 1700000
-            }
-            # Car data for Chennai Sedans (similar structure as Mumbai)
-        },
-        "SUV": {
-            "Hyundai": {
-                "Creta": 1100000,
-                "Venue": 950000,
-                "Tucson": 1500000,
-                "Santa Fe": 1800000,
-                "Kona": 1300000
-            },
-            "Kia": {
-                "Seltos": 1050000,
-                "Sonet": 900000,
-                "Sportage": 1400000,
-                "Telluride": 1700000,
-                "Carnival": 1900000
-            },
-            # Car data for Chennai SUVs (similar structure as Mumbai)
-        }
-    },
-    "Kolkata": {
-        "Sedan": {
-             "Maruti Suzuki": {
-                "Dzire": 800000,
-                "Ciaz": 900000,
-                "Baleno": 850000,
-                "Swift": 750000,
-                "Ertiga": 950000
-            },
-            "Hyundai": {
-                "Verna": 850000,
-                "Aura": 820000,
-                "i20": 780000,
-                "Elantra": 1200000,
-                "Accent": 800000
-            },
-            "Toyota": {
-                "Camry": 1500000,
-                "Yaris": 850000,
-                "Corolla": 1100000,
-                "Etios": 800000,
-                "Glanza": 750000
-            },
-            "Honda": {
-                "City": 900000,
-                "Amaze": 800000,
-                "Civic": 1150000,
-                "Accord": 2000000,
-                "Jazz": 850000
-            },
-            "Ford": {
-                "EcoSport": 1000000,
-                "Endeavour": 2500000,
-                "Escape": 1200000,
-                "Explorer": 1600000,
-                "Bronco": 1700000
-            }
-            # Car data for Kolkata Sedans (similar structure as Mumbai)
-        },
-        "SUV": {
-            "Hyundai": {
-                "Creta": 1100000,
-                "Venue": 950000,
-                "Tucson": 1500000,
-                "Santa Fe": 1800000,
-                "Kona": 1300000
-            },
-            "Kia": {
-                "Seltos": 1050000,
-                "Sonet": 900000,
-                "Sportage": 1400000,
-                "Telluride": 1700000,
-                "Carnival": 1900000
-            },
-            # Car data for Kolkata SUVs (similar structure as Mumbai)
-        }
-    },
-    "Pune": {
-        # Car data for Pune...
-    },
-    "Hyderabad": {
-        # Car data for Hyderabad...
-    },
-    "Chandigarh": {
-        # Car data for Chandigarh...
-    },
-    "Jaipur": {
-        # Car data for Jaipur...
-    },
-    "Ahmedabad": {
-        # Car data for Ahmedabad...
-    }
-}
+import sys
+from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout, QMessageBox, QDialog, QInputDialog
 
-# Dictionary to store user information (username, password, and email)
-user_database = {}
+class CarPriceSystem(QWidget):
+    def __init__(self):
+        super().__init__()
 
-# Function to register a new user
-def sign_up():
-    username = input("Enter your username: ")
-    password = input("Enter your password: ")
-    confirm_password = input("Confirm your password: ")
-    email = input("Enter your email address: ")
+        self.init_ui()
 
-    # Check if the username is already taken
-    if username in user_database:
-        print("Username already taken. Please choose another username.")
-        return
+    def init_ui(self):
+        self.setWindowTitle('Car Price System')
+        self.setGeometry(100, 100, 300, 200)
 
-    # Check if the passwords match
-    if password != confirm_password:
-        print("Passwords do not match. Please try again.")
-        return
+        # Create widgets for car price system here
 
-    # Store user information in the database (including email)
-    user_database[username] = {
-        'password': password,
-        'email': email,
-    }
-    print("Registration successful!")
+        layout = QVBoxLayout()
+        # Add widgets to the layout
+        # ...
 
-# Function to log in an existing user
-def sign_in():
-    username = input("Enter your username: ")
-    password = input("Enter your password: ")
+        self.setLayout(layout)
 
-    # Check if the username exists in the database and the password is correct
-    if username in user_database and user_database[username]['password'] == password:
-        print(f"Welcome, {username}!")
+class LoginPage(QDialog):
+    def __init__(self):
+        super().__init__()
 
-        # Prompt the user for car preferences (city, car type, car company, car model)
-        user_city = input("Enter your city: ")
-        car_type = input("Enter car type (Sedan or SUV): ")
-        car_company = input("Enter car company: ")
-        car_model = input("Enter car model: ")
+        self.init_ui()
+        self.users = {}  # Dictionary to store user credentials
 
-        result = get_car_preferences(user_city, car_type, car_company, car_model)
-        print(result)
-    else:
-        print("Invalid username or password. Please try again.")
+    def init_ui(self):
+        self.setWindowTitle('Login Page')
+        self.setGeometry(100, 100, 300, 200)
 
-# Function to get user's car preferences (same as before)
-def get_car_preferences(user_city, car_type, car_company, car_model):
-    # ... (rest of the get_car_preferences function remains the same)
+        self.username_label = QLabel('Username:', self)
+        self.username_entry = QLineEdit(self)
 
-# Main program loop
-while True:
-    print("\nCar Price Lookup System")
-    print("1. Sign Up")
-    print("2. Sign In")
-    print("3. Exit")
+        self.password_label = QLabel('Password:', self)
+        self.password_entry = QLineEdit(self)
+        self.password_entry.setEchoMode(QLineEdit.Password)
 
-    choice = input("Enter your choice: ")
+        self.login_button = QPushButton('Login', self)
+        self.signup_button = QPushButton('Sign Up', self)
+        self.forgot_password_button = QPushButton('Forgot Password', self)
 
-    if choice == '1':
-        sign_up()
-    elif choice == '2':
-        sign_in()
-    elif choice == '3':
-        print("Goodbye!")
-        break
-    else:
-        print("Invalid choice. Please enter 1, 2, or 3.")
+        layout = QVBoxLayout()
+        layout.addWidget(self.username_label)
+        layout.addWidget(self.username_entry)
+        layout.addWidget(self.password_label)
+        layout.addWidget(self.password_entry)
+        layout.addWidget(self.login_button)
+        layout.addWidget(self.signup_button)
+        layout.addWidget(self.forgot_password_button)
+
+        self.setLayout(layout)
+
+        self.login_button.clicked.connect(self.login)
+        self.signup_button.clicked.connect(self.signup)
+        self.forgot_password_button.clicked.connect(self.forgot_password)
+
+    def login(self):
+        username = self.username_entry.text()
+        password = self.password_entry.text()
+
+        if username in self.users and self.users[username] == password:
+            self.accept()  # Close the login dialog and open the main application window
+        else:
+            QMessageBox.critical(self, 'Login', 'Login Failed. Invalid username or password.')
+
+    def signup(self):
+        username = self.username_entry.text()
+        password = self.password_entry.text()
+
+        if not username or not password:
+            QMessageBox.warning(self, 'Sign Up', 'Username and Password are required for sign up.')
+            return
+
+        if username in self.users:
+            QMessageBox.warning(self, 'Sign Up', 'Username already exists. Please choose another.')
+        else:
+            self.users[username] = password
+            QMessageBox.information(self, 'Sign Up', 'Sign Up Successful!')
+
+    def forgot_password(self):
+        username, ok = QInputDialog.getText(self, 'Forgot Password', 'Enter your username:')
+        if ok:
+            if username in self.users:
+                new_password, ok = QInputDialog.getText(self, 'Forgot Password', 'Enter a new password:')
+                if ok:
+                    self.users[username] = new_password
+                    QMessageBox.information(self, 'Forgot Password', 'Password reset successful!')
+            else:
+                QMessageBox.warning(self, 'Forgot Password', 'Username not found. Please check the username.')
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+
+    login_page = LoginPage()
+    if login_page.exec_() == QDialog.Accepted:
+        car_price_system = CarPriceSystem()
+        car_price_system.show()
+
+    sys.exit(app.exec_())
