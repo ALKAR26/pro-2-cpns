@@ -1,28 +1,31 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout, QMessageBox, QDialog, QInputDialog
+from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout, QMessageBox, QDialog, QInputDialog, QListWidget
 
 class CarPriceSystem(QWidget):
-    def __init__(self):
+    def __init__(self, cars):
         super().__init__()
 
+        self.cars = cars
         self.init_ui()
 
     def init_ui(self):
         self.setWindowTitle('Car Price System')
-        self.setGeometry(100, 100, 300, 200)
+        self.setGeometry(100, 100, 400, 300)
 
-        # Create widgets for car price system here
+        self.car_list = QListWidget(self)
+        for car, price in self.cars.items():
+            self.car_list.addItem(f"{car}: ${price:.2f}")
 
         layout = QVBoxLayout()
-        # Add widgets to the layout
-        # ...
+        layout.addWidget(self.car_list)
 
         self.setLayout(layout)
 
 class LoginPage(QDialog):
-    def __init__(self):
+    def __init__(self, cars):
         super().__init__()
 
+        self.cars = cars
         self.init_ui()
         self.users = {}  # Dictionary to store user credentials
 
@@ -91,11 +94,18 @@ class LoginPage(QDialog):
                 QMessageBox.warning(self, 'Forgot Password', 'Username not found. Please check the username.')
 
 if __name__ == '__main__':
+    cars = {
+        'Car Model 1': 25000.00,
+        'Car Model 2': 32000.00,
+        'Car Model 3': 28000.00,
+        'Car Model 4': 35000.00,
+    }
+
     app = QApplication(sys.argv)
 
-    login_page = LoginPage()
+    login_page = LoginPage(cars)
     if login_page.exec_() == QDialog.Accepted:
-        car_price_system = CarPriceSystem()
+        car_price_system = CarPriceSystem(cars)
         car_price_system.show()
 
     sys.exit(app.exec_())
