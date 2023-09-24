@@ -1,8 +1,9 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QListWidget, QDialog, QInputDialog, QLineEdit, QPushButton, QMessageBox, QListWidgetItem
-from PyQt5.QtCore import Qt  # Import Qt module from PyQt5
+from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QListWidget, QListWidgetItem, QPushButton, QDialog, QLineEdit, QMessageBox, QMainWindow
+from PyQt5.QtWebEngineWidgets import QWebEngineView
+from PyQt5.QtCore import QUrl
 
-class CarPriceSystem(QWidget):
+class CarPriceSystem(QMainWindow):
     def __init__(self, car_data):
         super().__init__()
 
@@ -12,50 +13,72 @@ class CarPriceSystem(QWidget):
 
     def init_ui(self):
         self.setWindowTitle('Car Price System')
-        self.setGeometry(100, 100, 400, 300)
+        self.setGeometry(100, 100, 800, 600)
 
-        self.car_list = QListWidget(self)
-        self.update_car_list()  # Display car data for the initial city
+        self.central_widget = QWebEngineView(self)
+        self.setCentralWidget(self.central_widget)
+        self.load_home_page()
 
-        self.switch_city_button = QPushButton('Switch City', self)
-        self.switch_city_button.clicked.connect(self.switch_city)
+    def load_home_page(self):
+        html = """
+        <html>
+        <head>
+            <title>Car Price System</title>
+        </head>
+        <body>
+            <h1>Select a city:</h1>
+            <ul>
+                {}
+            </ul>
+        </body>
+        </html>
+        """.format("".join([f"<li><a href='car_list/{city}'>{city}</a></li>" for city in self.car_data.keys()]))
 
-        self.compare_button = QPushButton('Compare', self)
-        self.compare_button.setEnabled(False)  # Disable the Compare button initially
-        self.compare_button.clicked.connect(self.compare_cars)
+        self.central_widget.setHtml(html)
 
-        layout = QVBoxLayout()
-        layout.addWidget(self.car_list)
-        layout.addWidget(self.switch_city_button)
-        layout.addWidget(self.compare_button)
+    def load_car_list_page(self, city):
+        if city in self.car_data:
+            city_data = self.car_data[city]
+            html = """
+            <html>
+            <head>
+                <title>Car Price System</title>
+            </head>
+            <body>
+                <h1>{}</h1>
+                <ul>
+                    {}
+                </ul>
+                <form method="POST" action="compare">
+                    {}
+                    <button type="submit">Compare Selected Cars</button>
+                </form>
+            </body>
+            </html>
+            """.format(
+                city,
+                "".join([f"<li><strong>{company}</strong></li><ul>{''.join([f'<li>{model} - ₹{price}</li>' for model, price in models.items()])}</ul>" for company, models in city_data.items()]),
+                "".join([f'<input type="checkbox" name="selected_cars" value="{city} - {company} - {model} - ₹{price}">{city} - {company} - {model} - ₹{price}<br>' for company, models in city_data.items() for model, price in models.items()])
+            )
 
-        self.setLayout(layout)
+            self.central_widget.setHtml(html)
 
-    def update_car_list(self):
-        # Clear the current car list
-        self.car_list.clear()
+    def load_comparison_page(self, selected_cars):
+        html = """
+        <html>
+        <head>
+            <title>Car Price System</title>
+        </head>
+        <body>
+            <h1>Comparison Result</h1>
+            <ul>
+                {}
+            </ul>
+        </body>
+        </html>
+        """.format("".join([f"<li>{car}</li>" for car in selected_cars]))
 
-        if self.current_city:
-            city_data = self.car_data.get(self.current_city, {})
-            for company, models in city_data.items():
-                for model, price in models.items():
-                    item = QListWidgetItem(f"{self.current_city} - {company} - {model}: ₹{price:.2f}", self.car_list)
-                    item.setFlags(item.flags() | Qt.ItemIsUserCheckable)
-                    item.setCheckState(Qt.Unchecked)
-
-    def switch_city(self):
-        city, ok = QInputDialog.getItem(self, 'Switch City', 'Select a city:', list(self.car_data.keys()), 0, False)
-        if ok:
-            self.current_city = city
-            self.update_car_list()
-
-    def compare_cars(self):
-        selected_items = [item.text() for item in self.car_list.selectedItems()]
-
-        if selected_items:
-            QMessageBox.information(self, 'Compare Cars', '\n'.join(selected_items))
-        else:
-            QMessageBox.warning(self, 'Compare Cars', 'No cars selected for comparison. Please select some cars.')
+        self.central_widget.setHtml(html)
 
 class LoginPage(QDialog):
     def __init__(self, car_data):
@@ -63,7 +86,7 @@ class LoginPage(QDialog):
 
         self.car_data = car_data
         self.init_ui()
-        self.users = {}  # Dictionary to store user credentials
+        self.users = {'user1': 'password1', 'user2': 'password2'}  # Dictionary to store user credentials
 
     def init_ui(self):
         self.setWindowTitle('Login Page')
@@ -134,15 +157,11 @@ if __name__ == '__main__':
             'Camry': 3500000,
             'Fortuner': 3500000,
             'Corolla': 2200000,
-            'Innova': 2800000,
-            'Yaris': 1100000,
         },
         'Honda': {
             'Civic': 2000000,
             'CR-V': 3000000,
-            'Amaze': 700000,
             'City': 1000000,
-            'BR-V': 1200000,
         },
     }
 
@@ -150,8 +169,6 @@ if __name__ == '__main__':
     car_data = {
         'Delhi': common_car_models,
         'Mumbai': common_car_models,
-        'Chennai': common_car_models,
-        'Bangalore': common_car_models,
     }
 
     app = QApplication(sys.argv)
