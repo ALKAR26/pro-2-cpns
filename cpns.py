@@ -1,17 +1,21 @@
+# Import necessary modules from PyQt5
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QListWidget, QListWidgetItem, QPushButton, QDialog, QLineEdit, QMessageBox, QMainWindow
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.QtCore import QUrl
 
+# Define a class for the main application window
 class CarPriceSystem(QMainWindow):
     def __init__(self, car_data):
         super().__init__()
 
+        # Initialize the car data and the selected city
         self.car_data = car_data
         self.current_city = None  # Track the currently selected city
-        self.init_ui()
+        self.init_ui()  # Call the method to set up the user interface
 
     def init_ui(self):
+        # Set window properties
         self.setWindowTitle('Car Price System')
         self.setGeometry(100, 100, 800, 600)
 
@@ -90,10 +94,12 @@ class CarPriceSystem(QMainWindow):
         # Load and display the HTML content in the central widget
         self.central_widget.setHtml(html)
 
+# Define a class for the login dialog
 class LoginPage(QDialog):
     def __init__(self, car_data):
         super().__init__()
 
+        # Initialize the car data
         self.car_data = car_data
         self.init_ui()
 
@@ -101,6 +107,7 @@ class LoginPage(QDialog):
         self.users = {'user1': 'password1', 'user2': 'password2'}
 
     def init_ui(self):
+        # Set dialog properties
         self.setWindowTitle('Login Page')
         self.setGeometry(100, 100, 300, 200)
 
@@ -172,6 +179,7 @@ class LoginPage(QDialog):
                     self.users[username] = new_password
                     QMessageBox.information(self, 'Forgot Password', 'Password reset successful!')
 
+# Main application entry point
 if __name__ == '__main__':
     # Define a common set of car models for all cities
     common_car_models = {
@@ -193,6 +201,7 @@ if __name__ == '__main__':
         'Mumbai': common_car_models,
     }
 
+    # Create a PyQt5 application instance
     app = QApplication(sys.argv)
 
     # Create the login page and display it
@@ -202,4 +211,5 @@ if __name__ == '__main__':
         car_price_system = CarPriceSystem(car_data)
         car_price_system.show()
 
+    # Start the PyQt5 application event loop
     sys.exit(app.exec_())
