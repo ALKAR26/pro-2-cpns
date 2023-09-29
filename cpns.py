@@ -101,3 +101,4 @@ if __name__ == "__main__":
     main_window = CarPriceLookupApp()
     main_window.show()
     sys.exit(app.exec_())
+
