@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QLineEdit, QMessageBox
+from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QLineEdit, QMessageBox, QDialog, QVBoxLayout, QHBoxLayout, QFormLayout
 
 class UserTypeSelector(QMainWindow):
     def __init__(self):
@@ -21,12 +21,10 @@ class UserTypeSelector(QMainWindow):
 
         self.user_button = QPushButton("User", self)
         self.user_button.setGeometry(200, 100, 100, 40)
-        self.user_button.clicked.connect(self.user_selected)
+        self.user_button.clicked.connect(self.show_user_signup)
 
         self.admin_login_window = None
-
-    def user_selected(self):
-        self.open_message_box("User")
+        self.user_signup_window = None
 
     def open_message_box(self, user_type):
         msg = f"You selected '{user_type}'"
@@ -35,6 +33,10 @@ class UserTypeSelector(QMainWindow):
     def show_admin_login(self):
         self.admin_login_window = AdminLoginWindow()
         self.admin_login_window.show()
+
+    def show_user_signup(self):
+        self.user_signup_window = UserSignupWindow()
+        self.user_signup_window.show()
 
 class AdminLoginWindow(QMainWindow):
     def __init__(self):
@@ -77,6 +79,47 @@ class AdminLoginWindow(QMainWindow):
             QMessageBox.information(self, "Admin Login", "Login Successful")
         else:
             QMessageBox.warning(self, "Admin Login", "Invalid Username or Password")
+
+class UserSignupWindow(QDialog):
+    def __init__(self):
+        super().__init__()
+
+        self.init_ui()
+
+    def init_ui(self):
+        self.setWindowTitle("USER SIGN UP")
+        self.setGeometry(300, 300, 550, 350)
+
+        self.label = QLabel(self)
+        self.label.setText(" ")
+        self.label.setGeometry(300, 100, 300, 100)
+
+        self.username_label = QLabel(self)
+        self.username_label.setText("Username:")
+        self.username_input = QLineEdit(self)
+
+        self.password_label = QLabel(self)
+        self.password_label.setText("Password:")
+        self.password_input = QLineEdit(self)
+        self.password_input.setEchoMode(QLineEdit.Password)
+
+        self.signup_button = QPushButton("Sign Up", self)
+        self.signup_button.clicked.connect(self.user_signup)
+
+        layout = QFormLayout()
+        layout.addRow(self.username_label, self.username_input)
+        layout.addRow(self.password_label, self.password_input)
+        layout.addWidget(self.signup_button)
+
+        self.setLayout(layout)
+
+    def user_signup(self):
+        username = self.username_input.text()
+        password = self.password_input.text()
+
+        # Here, you can add logic to handle user signup, such as storing the user information.
+
+        QMessageBox.information(self, "User Signup", "Signup Successful")
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
