@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QLineEdit, QMessageBox, QDialog, QVBoxLayout, QHBoxLayout, QFormLayout
+from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QLineEdit, QMessageBox, QDialog, QVBoxLayout, QHBoxLayout, QFormLayout, QComboBox
 
 class UserTypeSelector(QMainWindow):
     def __init__(self):
@@ -46,11 +46,11 @@ class AdminLoginWindow(QMainWindow):
 
     def init_ui(self):
         self.setWindowTitle("Admin Login")
-        self.setGeometry(100, 100, 400, 200)
+        self.setGeometry(300, 300, 550, 350)
 
         self.label = QLabel(self)
-        self.label.setText("Admin Login")
-        self.label.setGeometry(150, 20, 100, 30)
+        self.label.setText(" ")
+        self.label.setGeometry(300, 100, 300, 100)
 
         self.username_label = QLabel(self)
         self.username_label.setText("Username:")
@@ -117,9 +117,32 @@ class UserSignupWindow(QDialog):
         username = self.username_input.text()
         password = self.password_input.text()
 
-        # Here, you can add logic to handle user signup, such as storing the user information.
+        # Here, you can add logic to store user information and perform signup actions.
 
         QMessageBox.information(self, "User Signup", "Signup Successful")
+        self.accept()  # Close the signup window
+
+class CarPriceNotifierWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+
+        self.init_ui()
+
+    def init_ui(self):
+        self.setWindowTitle("CAR PRICE NOTIFIER SYSTEM")
+        self.setGeometry(100, 100, 400, 200)
+
+        self.label = QLabel(self)
+        self.label.setText("CAR PRICE NOTIFIER SYSTEM")
+        self.label.setGeometry(100, 20, 200, 30)
+
+        self.state_label = QLabel(self)
+        self.state_label.setText("Select a state:")
+        self.state_label.setGeometry(50, 70, 100, 30)
+
+        self.state_combobox = QComboBox(self)
+        self.state_combobox.setGeometry(150, 70, 200, 30)
+        self.state_combobox.addItems(["State 1", "State 2", "State 3"])  # Add your states here
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
