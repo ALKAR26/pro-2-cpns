@@ -1,156 +1,157 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QLineEdit, QMessageBox, QDialog, QVBoxLayout, QComboBox
+from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QListWidget, QDialog, QInputDialog, QLineEdit, QPushButton, QMessageBox, QListWidgetItem, QAction, QMenu
+from PyQt5.QtCore import Qt
 
-class UserTypeSelector(QMainWindow):
-    def __init__(self):
+class CarPriceSystem(QWidget):
+    def __init__(self, car_data):
         super().__init__()
 
+        self.car_data = car_data
+        self.current_city = None
         self.init_ui()
 
     def init_ui(self):
-        self.setWindowTitle("User Type Selector")
-        self.setGeometry(100, 100, 400, 200)
+        self.setWindowTitle('Car Price System')
+        self.setGeometry(550, 220, 400, 300)
 
-        self.label = QLabel(self)
-        self.label.setText("Select your user type:")
-        self.label.setGeometry(50, 50, 300, 30)
+        self.car_list = QListWidget(self)
+        self.update_car_list()
 
-        self.admin_button = QPushButton("Admin", self)
-        self.admin_button.setGeometry(50, 100, 100, 40)
-        self.admin_button.clicked.connect(self.show_admin_login)
+        self.switch_city_button = QPushButton('Switch City', self)
+        self.switch_city_button.clicked.connect(self.switch_city)
 
-        self.user_button = QPushButton("User", self)
-        self.user_button.setGeometry(200, 100, 100, 40)
-        self.user_button.clicked.connect(self.show_user_signup)
+        # Add a "Send Notification" button
+        self.send_notification_button = QPushButton('Send Notification', self)
+        self.send_notification_button.clicked.connect(self.send_notification)
 
-        self.admin_login_window = None
-        self.user_signup_window = None
+        layout = QVBoxLayout()
+        layout.addWidget(self.car_list)
+        layout.addWidget(self.switch_city_button)
+        layout.addWidget(self.send_notification_button)
 
-    def open_message_box(self, user_type):
-        msg = f"You selected '{user_type}'"
-        self.label.setText(msg)
+        self.setLayout(layout)
 
-    def show_admin_login(self):
-        self.admin_login_window = AdminLoginWindow()
-        self.admin_login_window.show()
+    def update_car_list(self):
+        self.car_list.clear()
 
-    def show_user_signup(self):
-        self.user_signup_window = UserSignupWindow()
-        self.user_signup_window.user_signup_signal.connect(self.show_user_interface)
-        self.user_signup_window.show()
+        if self.current_city:
+            city_data = self.car_data.get(self.current_city, {})
+            for company, models in city_data.items():
+                for model, price in models.items():
+                    item = QListWidgetItem(f"{self.current_city} - {company} - {model}: ₹{price:.2f}", self.car_list)
+                    item.setFlags(item.flags() | Qt.ItemIsUserCheckable)
+                    item.setCheckState(Qt.Unchecked)
 
-    def show_user_interface(self, username):
-        self.user_interface_window = UserInterfaceWindow(username)
-        self.user_interface_window.show()
+    def switch_city(self):
+        city, ok = QInputDialog.getItem(self, 'Switch City', 'Select a city:', list(self.car_data.keys()), 0, False)
+        if ok:
+            self.current_city = city
+            self.update_car_list()
 
-class AdminLoginWindow(QMainWindow):
-    def __init__(self):
+    def send_notification(self):
+        # Display a notification message
+        QMessageBox.information(self, 'Notification', 'This is a notification message.')
+
+class LoginPage(QDialog):
+    def __init__(self, car_data):
         super().__init__()
 
+        self.car_data = car_data
         self.init_ui()
+        self.users = {}
 
     def init_ui(self):
-        self.setWindowTitle("Admin Login")
-        self.setGeometry(300, 300, 550, 350)
+        self.setWindowTitle('Login Page')
+        self.setGeometry(550, 220, 500, 500)
 
-        self.label = QLabel(self)
-        self.label.setText(" ")
-        self.label.setGeometry(300, 100, 300, 100)
+        self.username_label = QLabel('Username:', self)
+        self.username_entry = QLineEdit(self)
 
-        self.username_label = QLabel(self)
-        self.username_label.setText("Username:")
-        self.username_label.setGeometry(50, 150, 80, 30)
+        self.password_label = QLabel('Password:', self)
+        self.password_entry = QLineEdit(self)
+        self.password_entry.setEchoMode(QLineEdit.Password)
 
-        self.password_label = QLabel(self)
-        self.password_label.setText("Password:")
-        self.password_label.setGeometry(50, 200, 80, 30)
+        self.login_button = QPushButton('Login', self)
+        self.signup_button = QPushButton('Sign Up', self)
+        self.forgot_password_button = QPushButton('Forgot Password', self)
 
-        self.username_input = QLineEdit(self)
-        self.username_input.setGeometry(150, 150, 200, 30)
+        layout = QVBoxLayout()
+        layout.addWidget(self.username_label)
+        layout.addWidget(self.username_entry)
+        layout.addWidget(self.password_label)
+        layout.addWidget(self.password_entry)
+        layout.addWidget(self.login_button)
+        layout.addWidget(self.signup_button)
+        layout.addWidget(self.forgot_password_button)
 
-        self.password_input = QLineEdit(self)
-        self.password_input.setGeometry(150, 200, 200, 30)
-        self.password_input.setEchoMode(QLineEdit.Password)
+        self.setLayout(layout)
 
-        self.login_button = QPushButton("Login", self)
-        self.login_button.setGeometry(150, 250, 100, 30)
-        self.login_button.clicked.connect(self.admin_login)
+        self.login_button.clicked.connect(self.login)
+        self.signup_button.clicked.connect(self.signup)
+        self.forgot_password_button.clicked.connect(self.forgot_password)
 
-    def admin_login(self):
-        username = self.username_input.text()
-        password = self.password_input.text()
+    def login(self):
+        username = self.username_entry.text()
+        password = self.password_entry.text()
 
-        if username == "ALKAR" and password == "12345678":
-            QMessageBox.information(self, "Admin Login", "Login Successful")
+        if username in self.users and self.users[username] == password:
+            self.accept()
         else:
-            QMessageBox.warning(self, "Admin Login", "Invalid Username or Password")
+            QMessageBox.critical(self, 'Login', 'Login Failed. Invalid username or password.')
 
-class UserSignupWindow(QDialog):
-    user_signup_signal = pyqtSignal(str)  # Signal to notify the user has signed up
+    def signup(self):
+        username = self.username_entry.text()
+        password = self.password_entry.text()
 
-    def __init__(self):
-        super().__init__()
+        if not username or not password:
+            QMessageBox.warning(self, 'Sign Up', 'Username and Password are required for sign up.')
+            return
 
-        self.init_ui()
+        if username in self.users:
+            QMessageBox.warning(self, 'Sign Up', 'Username already exists. Please choose another.')
+        else:
+            self.users[username] = password
+            QMessageBox.information(self, 'Sign Up', 'Sign Up Successful!')
 
-    def init_ui(self):
-        self.setWindowTitle("USER SIGN UP")
-        self.setGeometry(300, 300, 550, 350)
-
-        self.label = QLabel(self)
-        self.label.setText(" ")
-        self.label.setGeometry(300, 100, 300, 100)
-
-        self.username_label = QLabel(self)
-        self.username_label.setText("Username:")
-        self.username_label.setGeometry(50, 150, 80, 30)
-
-        self.password_label = QLabel(self)
-        self.password_label.setText("Password:")
-        self.password_label.setGeometry(50, 200, 80, 30)
-
-        self.username_input = QLineEdit(self)
-        self.username_input.setGeometry(150, 150, 200, 30)
-
-        self.password_input = QLineEdit(self)
-        self.password_input.setGeometry(150, 200, 200, 30)
-        self.password_input.setEchoMode(QLineEdit.Password)
-
-        self.signup_button = QPushButton("Sign Up", self)
-        self.signup_button.setGeometry(150, 250, 100, 30)
-        self.signup_button.clicked.connect(self.user_signup)
-
-    def user_signup(self):
-        username = self.username_input.text()
-        password = self.password_input.text()
-
-        # Here, you can add logic to store user information and perform signup actions.
-        # In this example, we emit a signal to notify the user has signed up.
-
-        self.user_signup_signal.emit(username)
-        QMessageBox.information(self, "User Signup", "Signup Successful")
-        self.accept()  # Close the signup window
-
-class UserInterfaceWindow(QMainWindow):
-    def __init__(self, username):
-        super().__init__()
-
-        self.init_ui(username)
-
-    def init_ui(self, username):
-        self.setWindowTitle(f"Welcome, {username}")
-        self.setGeometry(400, 200, 600, 400)
-
-        self.label = QLabel(self)
-        self.label.setText("Select your city:")
-        self.label.setGeometry(50, 50, 200, 30)
-
-        self.city_combobox = QComboBox(self)
-        self.city_combobox.setGeometry(250, 50, 200, 30)
-        self.city_combobox.addItems(["City 1", "City 2", "City 3"])  # Add your cities here
+    def forgot_password(self):
+        username, ok = QInputDialog.getText(self, 'Forgot Password', 'Enter your username:')
+        if ok:
+            if username in self.users:
+                new_password, ok = QInputDialog.getText(self, 'Forgot Password', 'Enter a new password:')
+                if ok:
+                    self.users[username] = new_password
+                    QMessageBox.information(self, 'Forgot Password', 'Password reset successful!')
 
 if __name__ == '__main__':
+    common_car_models = {
+        'Toyota': {
+            'Camry': 3500000,
+            'Fortuner': 3500000,
+            'Corolla': 2200000,
+            'Innova': 2800000,
+            'Yaris': 1100000,
+        },
+        'Honda': {
+            'Civic': 2000000,
+            'CR-V': 3000000,
+            'Amaze': 700000,
+            'City': 1000000,
+            'BR-V': 1200000,
+        },
+    }
+
+    car_data = {
+        'Delhi': common_car_models,
+        'Mumbai': common_car_models,
+        'Chennai': common_car_models,
+        'Bangalore': common_car_models,
+    }
+
     app = QApplication(sys.argv)
-    window = UserTypeSelector()
-    window.show()
+
+    login_page = LoginPage(car_data)
+    if login_page.exec_() == QDialog.Accepted:
+        car_price_system = CarPriceSystem(car_data)
+        car_price_system.show()
+
     sys.exit(app.exec_())
