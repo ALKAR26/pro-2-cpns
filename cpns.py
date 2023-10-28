@@ -12,7 +12,7 @@ class CarPriceSystem(QWidget):
 
     def init_ui(self):
         self.setWindowTitle('Car Price System')
-        self.setGeometry(550, 220, 400, 300)
+        self.setGeometry(500, 250, 500, 400)
 
         self.car_list = QListWidget(self)
         self.update_car_list()
@@ -50,7 +50,7 @@ class CarPriceSystem(QWidget):
 
     def send_notification(self):
         # Display a notification message
-        QMessageBox.information(self, 'Notification', 'This is a notification message.')
+        QMessageBox.information(self, 'Notification', 'Notification will be sent to your desktop when the sekected car price flicker.')
 
 class LoginPage(QDialog):
     def __init__(self, car_data):
@@ -62,7 +62,7 @@ class LoginPage(QDialog):
 
     def init_ui(self):
         self.setWindowTitle('Login Page')
-        self.setGeometry(550, 220, 500, 500)
+        self.setGeometry(500, 220, 500, 300)
 
         self.username_label = QLabel('Username:', self)
         self.username_entry = QLineEdit(self)
@@ -138,13 +138,45 @@ if __name__ == '__main__':
             'City': 1000000,
             'BR-V': 1200000,
         },
+        'Mahindra': {
+            'Thar': 1600000,
+            'Bolero': 1200000,
+            'Scarpio': 2000000,
+            'XUV 300': 8000000,
+            'Bolero NEO': 1400000,
+        },
+         'Hyundai': {
+            'Exter': 600000,
+            'Creta': 1100000,
+            'Grand i10 Nios': 600000,
+            'Venue': 800000,
+            'Verna': 1200000,
+        },
+         'Kia': {
+            'Seltos': 1500000,
+            'Sonet': 800000,
+            'Carens':1200000,
+            'EV6': 7000000,
+        },
+        'Tata': {
+            'Nexon': 1000000,
+            'Harrier': 1500000,
+            ' Safari': 1600000,
+            'Tata Punch': 800000,
+            'Tata Nexon EV': 1800000,
+        },
     }
 
     car_data = {
         'Delhi': common_car_models,
         'Mumbai': common_car_models,
         'Chennai': common_car_models,
-        'Bangalore': common_car_models,
+        'Kolkata': common_car_models,
+        'Dehradun': common_car_models,
+        'Patna': common_car_models,
+        'Pithoragrah': common_car_models,
+        'Chandigrah': common_car_models,
+        'Pune': common_car_models,
     }
 
     app = QApplication(sys.argv)
